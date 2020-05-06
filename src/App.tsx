@@ -40,7 +40,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Input onChange={this.search} />
+        <Input placeholder="Space" onChange={this.search} />
       </div>
     );
   }

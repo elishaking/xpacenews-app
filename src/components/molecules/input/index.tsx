@@ -1,4 +1,4 @@
-import React, { HTMLProps, ComponentPropsWithoutRef } from "react";
+import React, { ComponentPropsWithoutRef } from "react";
 import styled from "styled-components";
 
 import { Input as InputAtom } from "../../atoms/input";
