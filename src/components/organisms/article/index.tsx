@@ -17,6 +17,7 @@ const Wrapper = styled.div`
   border: 1px solid #eeeeee;
   border-radius: 10px;
   transition: 0.3s ease-in-out;
+  /* height: 7em; */
 
   &:hover {
     box-shadow: 0px 15px 20px rgba(65, 64, 77, 0.1);
@@ -24,20 +25,39 @@ const Wrapper = styled.div`
 `;
 
 const Inner = styled.div`
-  flex: 3;
+  width: 70%;
   padding: 1.3em 2.7em;
+`;
+
+const ImageWrapper = styled.div`
+  width: 30%;
 `;
 
 const Image = styled.img`
   object-fit: cover;
-  flex: 1.3;
+  width: 100%;
+  height: 100%;
   border-radius: 10px 0 0 10px;
+`;
+
+const TextWrapper = styled.div`
+  position: relative;
+`;
+
+const TextOverlay = styled.div`
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  background-image: linear-gradient(#fff0, #fffffff2);
 `;
 
 export const Article = ({ article }: ArticleProps) => {
   return (
     <Wrapper>
-      <Image src={article.imageURL} alt={article.title} />
+      <ImageWrapper>
+        <Image src={article.imageURL} alt={article.title} />
+      </ImageWrapper>
       <Inner>
         <Text type={TextType.TITLE} color="#41404d">
           {article.title}
@@ -45,9 +65,17 @@ export const Article = ({ article }: ArticleProps) => {
 
         <Space width="1em" />
 
-        <Text type={TextType.BODY} color="#a0a0a0">
-          {article.description}
-        </Text>
+        <TextWrapper>
+          <Text
+            type={TextType.BODY}
+            color="#a0a0a0"
+            style={{ height: "10em", overflow: "hidden" }}
+          >
+            {article.description}
+          </Text>
+
+          <TextOverlay />
+        </TextWrapper>
 
         <Space width="1em" />
 
