@@ -63,6 +63,10 @@ export const Article = ({ article }: ArticleProps) => {
               {new Date(parseInt(article.date)).toDateString()}
             </Text>
           </Row>
+
+          <Space width="0" flexGrow={1} dir="horizontal" />
+
+          <Text>Source: {article.source}</Text>
         </Row>
       </Inner>
     </Wrapper>
