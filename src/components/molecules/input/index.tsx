@@ -1,8 +1,10 @@
-import React from "react";
+import React, { HTMLProps, ComponentPropsWithoutRef } from "react";
 import styled from "styled-components";
 
 import { Input as InputAtom } from "../../atoms/input";
 import { Search } from "../../atoms/icons";
+
+interface InputProps extends ComponentPropsWithoutRef<"input"> {}
 
 const Wrapper = styled.div`
   position: relative;
@@ -30,10 +32,10 @@ const Wrapper = styled.div`
   }
 `;
 
-export function Input() {
+export function Input(props: InputProps) {
   return (
     <Wrapper>
-      <InputAtom />
+      <InputAtom {...props} />
       <Search />
     </Wrapper>
   );
