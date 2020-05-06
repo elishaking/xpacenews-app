@@ -9,9 +9,11 @@
     "@types/jest": "^25.2.1",
     "@types/node": "^13.13.4",
     "@types/react-dom": "^16.9.7",
+    "@types/styled-components": "^5.1.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
+    "styled-components": "^5.1.0",
     "typescript": "^3.8.3"
   },
   "scripts": {
