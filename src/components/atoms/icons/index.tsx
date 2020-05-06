@@ -2,6 +2,7 @@ import React from "react";
 
 interface IconProps {
   color?: string;
+  fontSize?: string;
 }
 
 export const Search = (props: IconProps) => {
@@ -11,6 +12,7 @@ export const Search = (props: IconProps) => {
       width="1em"
       height="1em"
       viewBox="0 0 18.707 18.708"
+      style={{ fontSize: props.fontSize }}
     >
       <g id="bx-search-alt" transform="translate(-2 -2)">
         <path
@@ -39,6 +41,7 @@ export const Clock = (props: IconProps) => {
       width="1em"
       height="1em"
       viewBox="0 0 20 20"
+      style={{ fontSize: props.fontSize }}
     >
       <path
         id="Path_1"

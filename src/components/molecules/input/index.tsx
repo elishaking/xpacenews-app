@@ -36,7 +36,7 @@ export function Input(props: InputProps) {
   return (
     <Wrapper>
       <InputAtom {...props} />
-      <Search />
+      <Search fontSize="1.7em" />
     </Wrapper>
   );
 }
