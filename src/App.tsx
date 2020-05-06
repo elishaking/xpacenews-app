@@ -1,13 +1,11 @@
 import React from "react";
 import "./App.css";
-import { Text, TextType } from "./components/atoms/text";
+import { Input } from "./components/atoms/input";
 
 function App() {
   return (
     <div className="App">
-      <Text type={TextType.HEADER}>Hello</Text>
-      <Text type={TextType.TITLE}>Hello</Text>
-      <Text type={TextType.BODY}>Hello</Text>
+      <Input />
     </div>
   );
 }
