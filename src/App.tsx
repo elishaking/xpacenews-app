@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import styled from "styled-components";
 import axios, { Canceler } from "axios";
 
 import "./App.css";
@@ -6,6 +7,24 @@ import { Input } from "./components/molecules/input";
 import { Article as ArticleModel } from "./models/article";
 import { Space } from "./components/atoms/space";
 import { Article } from "./components/organisms/article";
+
+const InputContainer = styled.div`
+  background-color: #c40000;
+  padding: 3em 0;
+`;
+
+const ArticlesContainer = styled.div`
+  background-color: #464554;
+  padding: 3em 0;
+`;
+
+const Inner = styled.div`
+  max-width: 1100px;
+  margin: auto;
+  padding: 3em 3em;
+  border-radius: 10px;
+  background-color: #fff;
+`;
 
 let cancel: Canceler;
 
@@ -16,10 +35,10 @@ class App extends Component {
 
   componentDidMount() {
     console.log("getting data");
-    axios.get("/api/v1/articles/10").then((res) => {
+    axios.get("/api/v1/articles/search/elon").then((res) => {
       console.log(res.data);
       this.setState({
-        articles: [res.data.data],
+        articles: res.data.data,
       });
     });
   }
@@ -55,12 +74,25 @@ class App extends Component {
 
     return (
       <div>
-        <Input placeholder="Space" onChange={this.search} />
-        <Space width="3em" />
-        {articles &&
-          articles.map((article, idx) => {
-            return <Article key={idx} article={article} />;
-          })}
+        <InputContainer>
+          <Inner>
+            <Input placeholder="Space" onChange={this.search} />
+          </Inner>
+        </InputContainer>
+
+        <ArticlesContainer>
+          <Inner>
+            {articles &&
+              articles.map((article, idx) => {
+                return (
+                  <>
+                    <Article key={idx} article={article} />
+                    <Space width="2.3em" />
+                  </>
+                );
+              })}
+          </Inner>
+        </ArticlesContainer>
       </div>
     );
   }
