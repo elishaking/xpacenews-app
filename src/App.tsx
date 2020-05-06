@@ -3,21 +3,25 @@ import axios, { Canceler } from "axios";
 
 import "./App.css";
 import { Input } from "./components/molecules/input";
-import { Article } from "./models/article";
+import { Article as ArticleModel } from "./models/article";
 import { Space } from "./components/atoms/space";
+import { Article } from "./components/organisms/article";
 
 let cancel: Canceler;
 
 class App extends Component {
   state = {
-    articles: [] as Article[],
+    articles: [] as ArticleModel[],
   };
 
   componentDidMount() {
     console.log("getting data");
-    // axios.get("/api/v1/articles").then((res) => {
-    //   console.log(res.data);
-    // });
+    axios.get("/api/v1/articles/10").then((res) => {
+      console.log(res.data);
+      this.setState({
+        articles: [res.data.data],
+      });
+    });
   }
 
   search = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,12 +58,8 @@ class App extends Component {
         <Input placeholder="Space" onChange={this.search} />
         <Space width="3em" />
         {articles &&
-          articles.map((article) => {
-            return (
-              <div>
-                <h3>{article.title}</h3>
-              </div>
-            );
+          articles.map((article, idx) => {
+            return <Article key={idx} article={article} />;
           })}
       </div>
     );
