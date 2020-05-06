@@ -3,10 +3,15 @@ import axios, { Canceler } from "axios";
 
 import "./App.css";
 import { Input } from "./components/molecules/input";
+import { Article } from "./models/article";
 
 let cancel: Canceler;
 
 class App extends Component {
+  state = {
+    articles: [] as Article[],
+  };
+
   componentDidMount() {
     console.log("getting data");
     // axios.get("/api/v1/articles").then((res) => {
