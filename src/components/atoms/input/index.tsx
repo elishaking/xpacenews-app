@@ -10,4 +10,5 @@ export const Input = styled.input<InputProps>`
   border: none;
   border-bottom: 1px solid #ccc;
   padding: 0.4em 0;
+  /* transition: 0.3s ease-in-out; */
 `;
