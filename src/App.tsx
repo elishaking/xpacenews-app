@@ -4,6 +4,7 @@ import axios, { Canceler } from "axios";
 import "./App.css";
 import { Input } from "./components/molecules/input";
 import { Article } from "./models/article";
+import { Space } from "./components/atoms/space";
 
 let cancel: Canceler;
 
@@ -46,6 +47,8 @@ class App extends Component {
     return (
       <div>
         <Input placeholder="Space" onChange={this.search} />
+        <Space width="3em" />
+        <p>hello</p>
       </div>
     );
   }
