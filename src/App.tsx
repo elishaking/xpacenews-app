@@ -37,8 +37,8 @@ class App extends Component {
 
   componentDidMount() {
     console.log("getting data");
-    axios.get("/api/v1/articles/search/elon").then((res) => {
-      console.log(res.data);
+    axios.get("/api/v1/articles/").then((res) => {
+      // console.log(res.data);
       this.setState({
         articles: res.data.data,
       });
@@ -49,7 +49,7 @@ class App extends Component {
     if (cancel) cancel();
 
     const searchQuery = e.target.value;
-    console.log(searchQuery);
+    // console.log(searchQuery);
     axios
       .get(`/api/v1/articles/search/${searchQuery}`, {
         cancelToken: new axios.CancelToken((c) => {
@@ -72,7 +72,6 @@ class App extends Component {
   };
 
   openArticle = (idx: number) => {
-    console.log("clicked");
     window.open(this.state.articles[idx].url, "_blank");
   };
 
