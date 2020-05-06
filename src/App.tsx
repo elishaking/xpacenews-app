@@ -33,6 +33,9 @@ class App extends Component {
       })
       .then((res) => {
         console.log(res.data);
+        this.setState({
+          articles: res.data.data,
+        });
       })
       .catch((err) => {
         if (axios.isCancel(err)) {
@@ -44,11 +47,20 @@ class App extends Component {
   };
 
   render() {
+    const { articles } = this.state;
+
     return (
       <div>
         <Input placeholder="Space" onChange={this.search} />
         <Space width="3em" />
-        <p>hello</p>
+        {articles &&
+          articles.map((article) => {
+            return (
+              <div>
+                <h3>{article.title}</h3>
+              </div>
+            );
+          })}
       </div>
     );
   }
