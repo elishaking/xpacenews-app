@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import { Article as ArticleModel } from "../../../models/article";
 import { Text, TextType } from "../../atoms/text";
+import { Row } from "../../atoms/row";
 import { Space } from "../../atoms/space";
 import { Clock } from "../../atoms/icons";
 
@@ -31,11 +32,6 @@ const Image = styled.img`
   object-fit: cover;
   flex: 1.3;
   border-radius: 10px 0 0 10px;
-`;
-
-const Row = styled.div`
-  display: flex;
-  align-items: center;
 `;
 
 export const Article = ({ article }: ArticleProps) => {
