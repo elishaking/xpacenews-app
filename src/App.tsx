@@ -7,6 +7,8 @@ import { Input } from "./components/molecules/input";
 import { Article as ArticleModel } from "./models/article";
 import { Space } from "./components/atoms/space";
 import { Article } from "./components/organisms/article";
+import { Row } from "./components/atoms/row";
+import { Button } from "./components/atoms/button";
 
 const InputContainer = styled.div`
   background-color: #c40000;
@@ -77,6 +79,18 @@ class App extends Component {
         <InputContainer>
           <Inner>
             <Input placeholder="Space" onChange={this.search} />
+
+            <Space width="3em" />
+
+            <Row>
+              <Button active={true}>Stories</Button>
+
+              <Space width="1em" dir="horizontal" />
+
+              <Button>Photos</Button>
+
+              <Space width="0" flexGrow={1} dir="horizontal" />
+            </Row>
           </Inner>
         </InputContainer>
 
