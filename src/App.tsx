@@ -71,6 +71,11 @@ class App extends Component {
       });
   };
 
+  openArticle = (idx: number) => {
+    console.log("clicked");
+    window.open(this.state.articles[idx].url, "_blank");
+  };
+
   render() {
     const { articles } = this.state;
 
@@ -99,10 +104,13 @@ class App extends Component {
             {articles &&
               articles.map((article, idx) => {
                 return (
-                  <>
-                    <Article key={idx} article={article} />
+                  <div key={idx}>
+                    <Article
+                      article={article}
+                      onClick={(e) => this.openArticle(idx)}
+                    />
                     <Space width="2.3em" />
-                  </>
+                  </div>
                 );
               })}
           </Inner>

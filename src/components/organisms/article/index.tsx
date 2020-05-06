@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ComponentPropsWithoutRef } from "react";
 import styled from "styled-components";
 
 import { Article as ArticleModel } from "../../../models/article";
@@ -7,7 +7,7 @@ import { Row } from "../../atoms/row";
 import { Space } from "../../atoms/space";
 import { Clock } from "../../atoms/icons";
 
-interface ArticleProps {
+interface ArticleProps extends ComponentPropsWithoutRef<"div"> {
   article: ArticleModel;
 }
 
@@ -52,9 +52,9 @@ const TextOverlay = styled.div`
   background-image: linear-gradient(#fff0, #fffffff2);
 `;
 
-export const Article = ({ article }: ArticleProps) => {
+export const Article = ({ article, ...rest }: ArticleProps) => {
   return (
-    <Wrapper>
+    <Wrapper {...rest}>
       <ImageWrapper>
         <Image src={article.imageURL} alt={article.title} />
       </ImageWrapper>
