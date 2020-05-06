@@ -4,15 +4,22 @@ import styled from "styled-components";
 import { Article as ArticleModel } from "../../../models/article";
 import { Text, TextType } from "../../atoms/text";
 import { Space } from "../../atoms/space";
+import { Clock } from "../../atoms/icons";
 
 interface ArticleProps {
   article: ArticleModel;
 }
 
 const Wrapper = styled.div`
+  cursor: pointer;
   display: flex;
-  border: 1px solid #ccc;
+  border: 1px solid #eeeeee;
   border-radius: 10px;
+  transition: 0.3s ease-in-out;
+
+  &:hover {
+    box-shadow: 0px 15px 20px rgba(65, 64, 77, 0.1);
+  }
 `;
 
 const Inner = styled.div`
@@ -28,6 +35,7 @@ const Image = styled.img`
 
 const Row = styled.div`
   display: flex;
+  align-items: center;
 `;
 
 export const Article = ({ article }: ArticleProps) => {
@@ -49,6 +57,8 @@ export const Article = ({ article }: ArticleProps) => {
 
         <Row>
           <Row>
+            <Clock color="#000" />
+            <Space width="0.7em" dir="horizontal" />
             <Text type={TextType.BODY} color="#41404d">
               {new Date(parseInt(article.date)).toDateString()}
             </Text>

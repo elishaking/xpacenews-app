@@ -1,10 +1,10 @@
 import React from "react";
 
-interface SearchProps {
+interface IconProps {
   color?: string;
 }
 
-export const Search = (props: SearchProps) => {
+export const Search = (props: IconProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -28,6 +28,32 @@ export const Search = (props: SearchProps) => {
           fill={props.color || "#9E9E9E"}
         />
       </g>
+    </svg>
+  );
+};
+export const Clock = (props: IconProps) => {
+  return (
+    <svg
+      id="bx-time"
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      viewBox="0 0 20 20"
+    >
+      <path
+        id="Path_1"
+        data-name="Path 1"
+        d="M12,2A10,10,0,1,0,22,12,10.011,10.011,0,0,0,12,2Zm0,18a8,8,0,1,1,8-8A8.009,8.009,0,0,1,12,20Z"
+        transform="translate(-2 -2)"
+        fill={props.color || "#9E9E9E"}
+      />
+      <path
+        id="Path_2"
+        data-name="Path 2"
+        d="M13,7H11v6h6V11H13Z"
+        transform="translate(-2 -2)"
+        fill={props.color || "#9E9E9E"}
+      />
     </svg>
   );
 };
