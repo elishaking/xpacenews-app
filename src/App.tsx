@@ -9,6 +9,7 @@ import { Space } from "./components/atoms/space";
 import { Article } from "./components/organisms/article";
 import { Row } from "./components/atoms/row";
 import { Button } from "./components/atoms/button";
+import { logError } from "./utils/logError";
 
 const InputContainer = styled.div`
   background-color: #c40000;
@@ -80,8 +81,33 @@ class App extends Component {
 
   toggleStories = (val: boolean) => {
     const { storiesActive } = this.state;
-    if (storiesActive && !val) this.setState({ storiesActive: false });
-    else if (!storiesActive && val) this.setState({ storiesActive: true });
+    if (storiesActive && !val) {
+      this.setState({ storiesActive: false });
+
+      axios
+        .get("/api/v1/articles/")
+        .then((res) => {
+          const { data } = res;
+          if (!data.success) throw new Error(data.message);
+
+          this.setState({ articles: data.data });
+        })
+        .catch((err) => logError(err));
+    } else if (!storiesActive && val) {
+      this.setState({ storiesActive: true });
+
+      axios
+        .post("/api/v1/articles/", {
+          order: [["clicks", "DESC"]],
+        })
+        .then((res) => {
+          const { data } = res;
+          if (!data.success) throw new Error(data.message);
+
+          this.setState({ articles: data.data });
+        })
+        .catch((err) => logError(err));
+    }
   };
 
   render() {
