@@ -56,11 +56,16 @@ class App extends Component {
     const searchQuery = e.target.value;
     // console.log(searchQuery);
     axios
-      .get(`/api/v1/articles/search/${searchQuery}`, {
-        cancelToken: new axios.CancelToken((c) => {
-          cancel = c;
-        }),
-      })
+      .get(
+        `/api/v1/articles/search/${
+          searchQuery === "" ? "ALL_ARTICLES" : searchQuery
+        }`,
+        {
+          cancelToken: new axios.CancelToken((c) => {
+            cancel = c;
+          }),
+        }
+      )
       .then((res) => {
         console.log(res.data);
         this.setState({
@@ -72,7 +77,7 @@ class App extends Component {
           return console.log("search: request cancelled");
         }
 
-        console.log("search: something went wrong");
+        logError(new Error("search: something went wrong"));
       });
   };
 
