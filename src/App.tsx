@@ -10,6 +10,7 @@ import { Article } from "./components/organisms/article";
 import { Row } from "./components/atoms/row";
 import { Button } from "./components/atoms/button";
 import { logError } from "./utils/logError";
+import { Loading } from "./components/atoms/loading";
 
 const InputContainer = styled.div`
   background-color: #c40000;
@@ -146,17 +147,19 @@ class App extends Component {
         </InputContainer>
 
         <ArticlesContainer>
-          {loading && (
+          {
             <div
               style={{
                 textAlign: "center",
                 color: "white",
                 marginBottom: "1em",
+                height: loading ? "5em" : 0,
+                transition: "0.3s ease-in",
               }}
             >
-              Loading...
+              <Loading />
             </div>
-          )}
+          }
           <Inner>
             {articles &&
               articles.map((article, idx) => {

@@ -33,6 +33,7 @@ export const Search = (props: IconProps) => {
     </svg>
   );
 };
+
 export const Clock = (props: IconProps) => {
   return (
     <svg
