@@ -72,7 +72,9 @@ class App extends Component {
   };
 
   openArticle = (idx: number) => {
-    window.open(this.state.articles[idx].url, "_blank");
+    const article = this.state.articles[idx];
+    axios.put(`/api/v1/articles/${article.id}`, article);
+    window.open(article.url, "_blank");
   };
 
   render() {
@@ -91,7 +93,7 @@ class App extends Component {
 
               <Space width="1em" dir="horizontal" />
 
-              <Button>Photos</Button>
+              <Button>Top Stories</Button>
 
               <Space width="0" flexGrow={1} dir="horizontal" />
             </Row>
