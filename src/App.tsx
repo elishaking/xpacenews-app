@@ -33,16 +33,18 @@ let cancel: Canceler;
 
 class App extends Component {
   state = {
+    loading: true,
     articles: [] as ArticleModel[],
     storiesActive: true,
   };
 
   componentDidMount() {
-    console.log("getting data");
+    // console.log("getting data");
     axios.get("/api/v1/articles/").then((res) => {
       // console.log(res.data);
       this.setState({
         articles: res.data.data,
+        loading: false,
       });
     });
   }
@@ -82,7 +84,7 @@ class App extends Component {
   toggleStories = (val: boolean) => {
     const { storiesActive } = this.state;
     if (storiesActive && !val) {
-      this.setState({ storiesActive: false });
+      this.setState({ loading: true, storiesActive: false });
 
       axios
         .get("/api/v1/articles/")
@@ -90,11 +92,11 @@ class App extends Component {
           const { data } = res;
           if (!data.success) throw new Error(data.message);
 
-          this.setState({ articles: data.data });
+          this.setState({ loading: false, articles: data.data });
         })
         .catch((err) => logError(err));
     } else if (!storiesActive && val) {
-      this.setState({ storiesActive: true });
+      this.setState({ loading: true, storiesActive: true });
 
       axios
         .post("/api/v1/articles/", {
@@ -104,14 +106,14 @@ class App extends Component {
           const { data } = res;
           if (!data.success) throw new Error(data.message);
 
-          this.setState({ articles: data.data });
+          this.setState({ loading: false, articles: data.data });
         })
         .catch((err) => logError(err));
     }
   };
 
   render() {
-    const { articles, storiesActive } = this.state;
+    const { loading, articles, storiesActive } = this.state;
 
     return (
       <div>
@@ -144,6 +146,17 @@ class App extends Component {
         </InputContainer>
 
         <ArticlesContainer>
+          {loading && (
+            <div
+              style={{
+                textAlign: "center",
+                color: "white",
+                marginBottom: "1em",
+              }}
+            >
+              Loading...
+            </div>
+          )}
           <Inner>
             {articles &&
               articles.map((article, idx) => {
