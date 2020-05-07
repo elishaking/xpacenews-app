@@ -11,6 +11,7 @@ import { Row } from "./components/atoms/row";
 import { Button } from "./components/atoms/button";
 import { logError } from "./utils/logError";
 import { Loading } from "./components/atoms/loading";
+import { Dropdown } from "./components/organisms/dropdown";
 
 const InputContainer = styled.div`
   background-color: #c40000;
@@ -161,6 +162,8 @@ class App extends Component {
               </Button>
 
               <Space width="0" flexGrow={1} dir="horizontal" />
+
+              <Dropdown />
             </Row>
           </Inner>
         </InputContainer>
