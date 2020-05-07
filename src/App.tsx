@@ -88,12 +88,18 @@ class App extends Component {
   };
 
   toggleStories = (val: boolean) => {
+    if (cancel) cancel();
+
     const { storiesActive } = this.state;
     if (storiesActive && !val) {
       this.setState({ loading: true, storiesActive: false });
 
       axios
-        .get("/api/v1/articles/")
+        .get("/api/v1/articles/", {
+          cancelToken: new axios.CancelToken((c) => {
+            cancel = c;
+          }),
+        })
         .then((res) => {
           const { data } = res;
           if (!data.success) throw new Error(data.message);
@@ -105,9 +111,17 @@ class App extends Component {
       this.setState({ loading: true, storiesActive: true });
 
       axios
-        .post("/api/v1/articles/", {
-          order: [["clicks", "DESC"]],
-        })
+        .post(
+          "/api/v1/articles/",
+          {
+            order: [["clicks", "DESC"]],
+          },
+          {
+            cancelToken: new axios.CancelToken((c) => {
+              cancel = c;
+            }),
+          }
+        )
         .then((res) => {
           const { data } = res;
           if (!data.success) throw new Error(data.message);
