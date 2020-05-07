@@ -95,22 +95,6 @@ class App extends Component {
       this.setState({ loading: true, storiesActive: false });
 
       axios
-        .get("/api/v1/articles/", {
-          cancelToken: new axios.CancelToken((c) => {
-            cancel = c;
-          }),
-        })
-        .then((res) => {
-          const { data } = res;
-          if (!data.success) throw new Error(data.message);
-
-          this.setState({ loading: false, articles: data.data });
-        })
-        .catch((err) => logError(err));
-    } else if (!storiesActive && val) {
-      this.setState({ loading: true, storiesActive: true });
-
-      axios
         .post(
           "/api/v1/articles/",
           {
@@ -122,6 +106,22 @@ class App extends Component {
             }),
           }
         )
+        .then((res) => {
+          const { data } = res;
+          if (!data.success) throw new Error(data.message);
+
+          this.setState({ loading: false, articles: data.data });
+        })
+        .catch((err) => logError(err));
+    } else if (!storiesActive && val) {
+      this.setState({ loading: true, storiesActive: true });
+
+      axios
+        .get("/api/v1/articles/", {
+          cancelToken: new axios.CancelToken((c) => {
+            cancel = c;
+          }),
+        })
         .then((res) => {
           const { data } = res;
           if (!data.success) throw new Error(data.message);
