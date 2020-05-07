@@ -33,6 +33,7 @@ let cancel: Canceler;
 class App extends Component {
   state = {
     articles: [] as ArticleModel[],
+    storiesActive: true,
   };
 
   componentDidMount() {
@@ -77,8 +78,14 @@ class App extends Component {
     window.open(article.url, "_blank");
   };
 
+  toggleStories = (val: boolean) => {
+    const { storiesActive } = this.state;
+    if (storiesActive && !val) this.setState({ storiesActive: false });
+    else if (!storiesActive && val) this.setState({ storiesActive: true });
+  };
+
   render() {
-    const { articles } = this.state;
+    const { articles, storiesActive } = this.state;
 
     return (
       <div>
@@ -89,11 +96,21 @@ class App extends Component {
             <Space width="3em" />
 
             <Row>
-              <Button active={true}>Stories</Button>
+              <Button
+                active={storiesActive}
+                onClick={() => this.toggleStories(true)}
+              >
+                Stories
+              </Button>
 
               <Space width="1em" dir="horizontal" />
 
-              <Button>Top Stories</Button>
+              <Button
+                active={!storiesActive}
+                onClick={() => this.toggleStories(false)}
+              >
+                Top Stories
+              </Button>
 
               <Space width="0" flexGrow={1} dir="horizontal" />
             </Row>
