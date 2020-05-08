@@ -29,6 +29,10 @@ const Inner = styled.div`
   padding: 3em 3em;
   border-radius: 10px;
   background-color: #fff;
+
+  @media (max-width: 1300px) {
+    margin: 0 5vw;
+  }
 `;
 
 let cancel: Canceler;
