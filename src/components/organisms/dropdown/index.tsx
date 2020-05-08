@@ -18,7 +18,7 @@ const Contents = styled.div<ContentsProps>`
   top: 0;
   right: 0;
   background-color: #fff;
-  padding: 1em 2em;
+  padding: 1em 0;
   border-radius: 10px;
   box-shadow: 0px 15px 20px rgba(65, 64, 77, 0.3);
   transition: 0.3s ease-in-out;
@@ -30,6 +30,19 @@ const Wrapper = styled.div<ContentsProps>`
   position: relative;
 
   ${Contents} {
+    p{
+      cursor: pointer;
+      margin: 0;
+      font-weight: bold;
+      color: #ccc;
+      padding: 1em 2em;
+      transition: 0.3s ease-in-out;
+    }
+
+    p:hover{
+      color: #c40000;
+      background-color: #F5F5F5;
+    }
   }
 
   ${Row} {
