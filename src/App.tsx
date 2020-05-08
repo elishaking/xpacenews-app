@@ -38,6 +38,7 @@ class App extends Component {
     loading: true,
     articles: [] as ArticleModel[],
     storiesActive: true,
+    outterClicked: 0,
   };
 
   componentDidMount() {
@@ -133,11 +134,18 @@ class App extends Component {
     }
   };
 
+  bodyClicked = () => {
+    const { outterClicked } = this.state;
+    this.setState({
+      outterClicked: outterClicked > 10000 ? 0 : outterClicked + 1,
+    });
+  };
+
   render() {
-    const { loading, articles, storiesActive } = this.state;
+    const { loading, articles, storiesActive, outterClicked } = this.state;
 
     return (
-      <div>
+      <div onClick={this.bodyClicked}>
         <InputContainer>
           <Inner>
             <Input placeholder="Space" onChange={this.search} />
@@ -163,7 +171,7 @@ class App extends Component {
 
               <Space width="0" flexGrow={1} dir="horizontal" />
 
-              <Dropdown />
+              <Dropdown outterClicked={outterClicked} />
             </Row>
           </Inner>
         </InputContainer>

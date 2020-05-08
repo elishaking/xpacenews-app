@@ -30,6 +30,6 @@ const fontWeight = ({ type }: TextProps) => {
 export const Text = styled.text<TextProps>`
   display: block;
   font-size: ${fontSize};
-  font-weight: ${fontWeight};
+  font-weight: ${(props) => props.fontWeight || fontWeight};
   color: ${(props) => props.color || "#000"};
 `;

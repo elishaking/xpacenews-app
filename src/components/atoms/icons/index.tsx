@@ -61,3 +61,22 @@ export const Clock = (props: IconProps) => {
     </svg>
   );
 };
+
+export const Filter = (props: IconProps) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      viewBox="0 0 18 19"
+      style={{ fontSize: props.fontSize }}
+    >
+      <path
+        id="bxs-filter-alt"
+        d="M13,20V15.414L20.414,8A2,2,0,0,0,21,6.585V4a1,1,0,0,0-1-1H4A1,1,0,0,0,3,4V6.585A2,2,0,0,0,3.586,8L11,15.414V22Z"
+        transform="translate(-3 -3)"
+        fill={props.color || "#9E9E9E"}
+      />
+    </svg>
+  );
+};
