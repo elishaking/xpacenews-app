@@ -11,19 +11,6 @@ interface ArticleProps extends ComponentPropsWithoutRef<"div"> {
   article: ArticleModel;
 }
 
-const Wrapper = styled.div`
-  cursor: pointer;
-  display: flex;
-  border: 1px solid #eeeeee;
-  border-radius: 10px;
-  transition: 0.3s ease-in-out;
-  /* height: 7em; */
-
-  &:hover {
-    box-shadow: 0px 15px 20px rgba(65, 64, 77, 0.1);
-  }
-`;
-
 const Inner = styled.div`
   width: 70%;
   padding: 1.3em 2.7em;
@@ -38,6 +25,45 @@ const Image = styled.img`
   width: 100%;
   height: 100%;
   border-radius: 10px 0 0 10px;
+`;
+
+const Wrapper = styled.div`
+  cursor: pointer;
+  display: flex;
+  border: 1px solid #eeeeee;
+  border-radius: 10px;
+  transition: 0.3s ease-in-out;
+  /* height: 7em; */
+
+  &:hover {
+    box-shadow: 0px 15px 20px rgba(65, 64, 77, 0.1);
+  }
+
+  @media (max-width: 1100px) {
+    ${Inner} {
+      width: 60%;
+    }
+
+    ${ImageWrapper} {
+      width: 40%;
+    }
+  }
+
+  @media (max-width: 1000px) {
+    flex-direction: column;
+
+    ${Inner} {
+      width: 100%;
+    }
+
+    ${ImageWrapper} {
+      width: 100%;
+
+      ${Image} {
+        border-radius: 10px 10px 0 0;
+      }
+    }
+  }
 `;
 
 const TextWrapper = styled.div`
