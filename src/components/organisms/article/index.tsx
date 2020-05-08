@@ -64,6 +64,12 @@ const Wrapper = styled.div`
       }
     }
   }
+
+  @media (max-width: 500px) {
+    ${Inner} {
+      padding: 5vw;
+    }
+  }
 `;
 
 const TextWrapper = styled.div`
@@ -85,7 +91,7 @@ export const Article = ({ article, ...rest }: ArticleProps) => {
         <Image src={article.imageURL} alt={article.title} />
       </ImageWrapper>
       <Inner>
-        <Text type={TextType.TITLE} color="#41404d">
+        <Text type={TextType.TITLE} color="#41404d" responsive>
           {article.title}
         </Text>
 

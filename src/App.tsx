@@ -16,11 +16,19 @@ import { Loading } from "./components/atoms/loading";
 const InputContainer = styled.div`
   background-color: #c40000;
   padding: 3em 0;
+
+  @media (max-width: 500px) {
+    padding: 10vw 0;
+  }
 `;
 
 const ArticlesContainer = styled.div`
   background-color: #464554;
   padding: 3em 0;
+
+  @media (max-width: 500px) {
+    padding: 10vw 0;
+  }
 `;
 
 const Inner = styled.div`
@@ -32,6 +40,10 @@ const Inner = styled.div`
 
   @media (max-width: 1300px) {
     margin: 0 5vw;
+  }
+
+  @media (max-width: 500px) {
+    padding: 5vw;
   }
 `;
 

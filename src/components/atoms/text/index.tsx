@@ -11,6 +11,7 @@ interface TextProps extends HTMLProps<HTMLParagraphElement> {
   children: ReactNode;
   type?: TextType;
   color?: string;
+  responsive?: boolean;
 }
 
 const fontSize = ({ type }: TextProps) => {
@@ -32,4 +33,8 @@ export const Text = styled.text<TextProps>`
   font-size: ${fontSize};
   font-weight: ${(props) => props.fontWeight || fontWeight};
   color: ${(props) => props.color || "#000"};
+
+  @media (max-width: 760px) {
+    font-size: ${(props) => (props.responsive ? "150%" : fontSize)};
+  }
 `;
