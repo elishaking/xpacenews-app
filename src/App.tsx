@@ -11,7 +11,13 @@ import { Row } from "./components/atoms/row";
 import { Button } from "./components/atoms/button";
 import { logError } from "./utils/logError";
 import { Loading } from "./components/atoms/loading";
+import { RouteComponentProps, match } from "react-router-dom";
 // import { Dropdown } from "./components/organisms/dropdown";
+
+enum StoryType {
+  REGULAR = "Regular",
+  TOP = "Top",
+}
 
 const InputContainer = styled.div`
   background-color: #c40000;
@@ -49,23 +55,40 @@ const Inner = styled.div`
 
 let cancel: Canceler;
 
-class App extends Component {
-  state = {
-    loading: true,
-    articles: [] as ArticleModel[],
-    storiesActive: true,
-    // outterClicked: 0,
-  };
+interface AppProps extends RouteComponentProps {
+  match: match<{ top: string }>;
+}
+
+interface AppState {
+  loading: boolean;
+  articles: ArticleModel[];
+  storiesActive: boolean;
+}
+
+class App extends Component<AppProps, Readonly<AppState>> {
+  constructor(props: AppProps) {
+    super(props);
+
+    this.state = {
+      loading: true,
+      articles: [] as ArticleModel[],
+      storiesActive: props.match.params.top !== "top-stories",
+      // outterClicked: 0,
+    };
+  }
 
   componentDidMount() {
-    // console.log("getting data");
-    axios.get("/api/v1/articles/").then((res) => {
-      // console.log(res.data);
-      this.setState({
-        articles: res.data.data,
-        loading: false,
-      });
-    });
+    // axios.get("/api/v1/articles/").then((res) => {
+    //   // console.log(res.data);
+    //   this.setState({
+    //     articles: res.data.data,
+    //     loading: false,
+    //   });
+    // });
+
+    this.getStories(
+      this.state.storiesActive === true ? StoryType.REGULAR : StoryType.TOP
+    );
   }
 
   search = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -114,13 +137,8 @@ class App extends Component {
     window.open(article.url, "_blank");
   };
 
-  toggleStories = (val: boolean) => {
-    if (cancel) cancel();
-
-    const { storiesActive } = this.state;
-    if (storiesActive && !val) {
-      this.setState({ loading: true, storiesActive: false });
-
+  getStories(type: StoryType) {
+    if (type === StoryType.TOP) {
       axios
         .post(
           "/api/v1/articles/",
@@ -139,10 +157,11 @@ class App extends Component {
 
           this.setState({ loading: false, articles: data.data });
         })
-        .catch((err) => logError(err));
-    } else if (!storiesActive && val) {
-      this.setState({ loading: true, storiesActive: true });
-
+        .catch((err) => {
+          logError(err);
+          this.setState({ loading: false });
+        });
+    } else {
       axios
         .get("/api/v1/articles/", {
           cancelToken: new axios.CancelToken((c) => {
@@ -155,7 +174,27 @@ class App extends Component {
 
           this.setState({ loading: false, articles: data.data });
         })
-        .catch((err) => logError(err));
+        .catch((err) => {
+          logError(err);
+          this.setState({ loading: false });
+        });
+    }
+  }
+
+  toggleStories = (val: boolean) => {
+    if (cancel) cancel();
+
+    const { storiesActive } = this.state;
+    if (storiesActive && !val) {
+      this.setState({ loading: true, storiesActive: false });
+      this.props.history.push("/top-stories");
+
+      this.getStories(StoryType.TOP);
+    } else if (!storiesActive && val) {
+      this.setState({ loading: true, storiesActive: true });
+      this.props.history.push("/");
+
+      this.getStories(StoryType.REGULAR);
     }
   };
 

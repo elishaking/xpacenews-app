@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
@@ -11,7 +12,12 @@ if (process.env.NODE_ENV === "production")
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <Switch>
+        <Route path="/" component={App} exact />
+        <Route path="/:top" component={App} exact />
+      </Switch>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
 );
