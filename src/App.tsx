@@ -71,6 +71,8 @@ class App extends Component {
   search = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (cancel) cancel();
 
+    this.setState({ loading: true });
+
     const searchQuery = e.target.value;
     // console.log(searchQuery);
     axios
@@ -81,18 +83,25 @@ class App extends Component {
         {
           cancelToken: new axios.CancelToken((c) => {
             cancel = c;
+            this.setState({ loading: false });
           }),
         }
       )
       .then((res) => {
-        console.log(res.data);
+        process.env.NODE_ENV === "development" && console.log(res.data);
         this.setState({
           articles: res.data.data,
+          loading: false,
         });
       })
       .catch((err) => {
+        this.setState({ loading: false });
+
         if (axios.isCancel(err)) {
-          return console.log("search: request cancelled");
+          return (
+            process.env.NODE_ENV === "development" &&
+            console.log("search: request cancelled")
+          );
         }
 
         logError(new Error("search: something went wrong"));
