@@ -160,8 +160,8 @@ class App extends Component {
   render() {
     const { loading, articles, storiesActive } = this.state;
 
+    // <div onClick={this.bodyClicked}>
     return (
-      // <div onClick={this.bodyClicked}>
       <div>
         <InputContainer>
           <Inner>
