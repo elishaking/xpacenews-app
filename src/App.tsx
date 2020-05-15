@@ -98,37 +98,39 @@ class App extends Component<AppProps, Readonly<AppState>> {
 
     const searchQuery = e.target.value;
     // console.log(searchQuery);
-    axios
-      .get(
-        `/api/v1/articles/search/${
-          searchQuery === "" ? "ALL_ARTICLES" : searchQuery
-        }`,
-        {
-          cancelToken: new axios.CancelToken((c) => {
-            cancel = c;
-            this.setState({ loading: false });
-          }),
-        }
-      )
-      .then((res) => {
-        process.env.NODE_ENV === "development" && console.log(res.data);
-        this.setState({
-          articles: res.data.data,
-          loading: false,
+    setTimeout(() => {
+      axios
+        .get(
+          `/api/v1/articles/search/${
+            searchQuery === "" ? "ALL_ARTICLES" : searchQuery
+          }`,
+          {
+            cancelToken: new axios.CancelToken((c) => {
+              cancel = c;
+              this.setState({ loading: false });
+            }),
+          }
+        )
+        .then((res) => {
+          process.env.NODE_ENV === "development" && console.log(res.data);
+          this.setState({
+            articles: res.data.data,
+            loading: false,
+          });
+        })
+        .catch((err) => {
+          this.setState({ loading: false });
+
+          if (axios.isCancel(err)) {
+            return (
+              process.env.NODE_ENV === "development" &&
+              console.log("search: request cancelled")
+            );
+          }
+
+          logError(new Error("search: something went wrong"));
         });
-      })
-      .catch((err) => {
-        this.setState({ loading: false });
-
-        if (axios.isCancel(err)) {
-          return (
-            process.env.NODE_ENV === "development" &&
-            console.log("search: request cancelled")
-          );
-        }
-
-        logError(new Error("search: something went wrong"));
-      });
+    }, 500);
   };
 
   openArticle = (idx: number) => {
